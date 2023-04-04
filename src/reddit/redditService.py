@@ -5,17 +5,15 @@ class Reddit:
         self.posts_and_comments = []
         self.top_posts = []
 
-    def accessReddit(self):
-        return praw.Reddit("user",
-            user_agent="UpvotedUniverse:v0.0.1",
-        )
+    def access_reddit(self):
+        return praw.Reddit("user", user_agent="UpvotedUniverse:v0.0.1")
 
-    def getPosts(self):
-        reddit = self.accessReddit()
+    def get_posts(self):
+        reddit = self.access_reddit()
         subreddit = reddit.subreddit('askreddit')
-        self.top_posts = subreddit.top(time_filter="day",limit=7)
+        self.top_posts = subreddit.top(time_filter="day",limit=5)
         
-    def getComments(self,post):
+    def get_comments(self,post):
         comments = post.comments
         comments.replace_more(limit=0)
         top_comments = comments[:5]
@@ -32,7 +30,7 @@ class Reddit:
         
         return final_comments
 
-    def generateDictionary(self):
+    def generate_dictionary(self):
         for post in self.top_posts:
             post_dict = {}
             post_dict['over_18'] = post.over_18
@@ -40,16 +38,9 @@ class Reddit:
             post_dict['author'] = post.author.name
             post_dict['id'] = post.id
             post_dict['url'] = post.url
-            post_dict['comments'] = self.getComments(post)
+            post_dict['comments'] = self.get_comments(post)
             self.posts_and_comments.append(post_dict)
-
-
-    def filterNSFW(self):
-        for post in self.posts_and_comments:
-            if post['over_18'] is True:
-                self.posts_and_comments.remove(post)
     
-    def runRedditService(self):
-        self.getPosts()
-        self.generateDictionary()
-        self.filterNSFW()
+    def run_reddit_service(self):
+        self.get_posts()
+        self.generate_dictionary()
