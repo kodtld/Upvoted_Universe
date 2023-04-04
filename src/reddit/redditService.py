@@ -13,7 +13,7 @@ class Reddit:
     def getPosts(self):
         reddit = self.accessReddit()
         subreddit = reddit.subreddit('askreddit')
-        self.top_posts = subreddit.top(time_filter="day",limit=5)
+        self.top_posts = subreddit.top(time_filter="day",limit=7)
         
     def getComments(self,post):
         comments = post.comments
@@ -35,6 +35,7 @@ class Reddit:
     def generateDictionary(self):
         for post in self.top_posts:
             post_dict = {}
+            post_dict['over_18'] = post.over_18
             post_dict['title'] = post.title
             post_dict['author'] = post.author.name
             post_dict['id'] = post.id
@@ -42,11 +43,13 @@ class Reddit:
             post_dict['comments'] = self.getComments(post)
             self.posts_and_comments.append(post_dict)
 
+
+    def filterNSFW(self):
+        for post in self.posts_and_comments:
+            if post['over_18'] is True:
+                self.posts_and_comments.remove(post)
+    
     def runRedditService(self):
         self.getPosts()
         self.generateDictionary()
-
-if __name__ == "__main__":
-    r = Reddit()
-    r.runRedditService()
-    print(r.posts_and_comments[0])
+        self.filterNSFW()
