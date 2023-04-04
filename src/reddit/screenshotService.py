@@ -15,15 +15,13 @@ class ScreenShotter:
     def login_reddit(self):
         self.driver.get('https://www.reddit.com/login/')
         time.sleep(2)
-        # Fill in the username field
+
         username_field = self.driver.find_element(By.ID, 'loginUsername')
         username_field.send_keys(self.username)
 
-        # Fill in the password field
         password_field = self.driver.find_element(By.ID, 'loginPassword')
         password_field.send_keys(self.password)
 
-        # Click the login button
         login_button = self.driver.find_element(By.XPATH, '//button[@type="submit"]')
         login_button.click()
 
@@ -60,8 +58,3 @@ class ScreenShotter:
 
     def close_driver(self):
         self.driver.close()
-
-# if __name__ == "__main__":
-#     ss = ScreenShotter("post_url", "post_id")
-#     ss.login_reddit()
-#     ss.close_driver()
