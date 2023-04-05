@@ -95,7 +95,7 @@ class ScreenShotter:
         im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
 
 
-    def close_driver(self):
+    def close_driver(self): 
         self.driver.close()
 
     def run_screenshot_service(self):
