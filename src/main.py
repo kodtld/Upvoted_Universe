@@ -14,6 +14,4 @@ if __name__ == "__main__":
         ss.run_screenshot_service()
 
         tts = TextToSpeech(post_body, post_id, post_comments)
-        tts.runTTSService()
-        break
-    
+        tts.runTTSService()    
