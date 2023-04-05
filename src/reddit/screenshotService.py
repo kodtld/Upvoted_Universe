@@ -72,29 +72,27 @@ class ScreenShotter:
 
     def comment_screenshot(self, comment):
         comment_id = comment['id']
-        # Wait for the comment element to be visible
+
         element = WebDriverWait(self.driver, 5).until(
             EC.visibility_of_element_located((By.ID, f"t1_{comment_id}"))
         )
 
-        self.driver.execute_script("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", element)
-        
-        location = element.location
-        size = element.size
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        location = element.location_once_scrolled_into_view
+        self.driver.execute_script("window.scrollBy(0, -100);")
 
-        print(location)
-        print(size)
+        size = element.size
         time.sleep(2)
 
         self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
-
-        # x = location['x']
-        # y = location['y']
-        # width = size['width']
-        # height = size['height']
-        # im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
-        # im = im.crop((int(x), int(y), int(x + width), int(y + height)))
-        # im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        
+        x = location['x']
+        y = location['y'] + 100
+        width = size['width']
+        height = size['height']
+        im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        im = im.crop((int(x), int(y), int(x + width), int(y + height)))
+        im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
 
 
     def close_driver(self):
