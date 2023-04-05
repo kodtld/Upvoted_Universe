@@ -2,15 +2,21 @@ import time
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from PIL import Image
 from dotenv import load_dotenv
 load_dotenv()
 
 class ScreenShotter:
-    def __init__(self):
+    def __init__(self, post_url, post_id, post_comments):
         self.driver = webdriver.Firefox(executable_path='C:/home/kxsalmi/Drivers/geckodriver')
         self.username = os.getenv('REDDIT_USERNAME')
         self.password = os.getenv('REDDIT_PASSWORD')
+        self.post_url = post_url
+        self.post_id = post_id
+        self.post_comments = post_comments
+
 
     def login_reddit(self):
         self.driver.get('https://www.reddit.com/login/')
@@ -27,34 +33,76 @@ class ScreenShotter:
 
         time.sleep(2)
 
-    def title_screenshot(self, post_url, post_id):
-        self.driver.get(f'{post_url}')
+    def close_popup(self):
+        time.sleep(1)
+        try:
+            reject_button = self.driver.find_element(By.XPATH, '//button[text()="Reject non-essential"]')
+            reject_button.click()
+            close_button = self.driver.find_element(By.XPATH, '//button[@aria-label="Close"]')
+            close_button.click()
+
+        except: # pylint: disable=W0702
+            pass
+
+    def title_screenshot(self):
+        self.driver.get(f'{self.post_url}')
         time.sleep(2)
-        
-        close_button = self.driver.find_element(By.XPATH, '//button[@aria-label="Close"]')
-        close_button.click()
+        self.close_popup()
 
         try:
             element = self.driver.find_element(By.CLASS_NAME, "Post")
 
-        except:
-            element = self.driver.find_element(By.ID, f"t3_{post_id}")
+        except: # pylint: disable=W0702
+            element = self.driver.find_element(By.ID, f"t3_{self.post_id}")
         
         location = element.location
         size = element.size
+        
+        os.makedirs(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}')
 
-        self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{post_id}.png')
+        self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
 
         x = location['x']
         y = location['y']
         width = size['width']
         height = size['height']
-        im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{post_id}.png')
+        im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
         im = im.crop((int(x), int(y), int(x + width), int(y + height)))
-        im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{post_id}.png')
+        im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
 
-    def comment_screenshot(self):
-        pass
+    def comment_screenshot(self, comment):
+        comment_id = comment['id']
+        # Wait for the comment element to be visible
+        element = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located((By.ID, f"t1_{comment_id}"))
+        )
+
+        self.driver.execute_script("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", element)
+        
+        location = element.location
+        size = element.size
+
+        print(location)
+        print(size)
+        time.sleep(2)
+
+        self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+
+        # x = location['x']
+        # y = location['y']
+        # width = size['width']
+        # height = size['height']
+        # im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        # im = im.crop((int(x), int(y), int(x + width), int(y + height)))
+        # im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+
 
     def close_driver(self):
         self.driver.close()
+
+    def run_screenshot_service(self):
+        self.login_reddit()
+        self.title_screenshot()
+        for comment in self.post_comments:
+            self.comment_screenshot(comment)
+        self.close_driver()
