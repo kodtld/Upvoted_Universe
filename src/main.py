@@ -1,7 +1,8 @@
 from reddit.redditService import Reddit
 from reddit.screenshotService import ScreenShotter
 from reddit.textToSpeechService import TextToSpeech
-from content_creator.parseVoiceAndClip import Parser
+from content_creator.parseVoiceAndClip import ParserVoiceAndScreenshot
+from content_creator.finalVideoService import FinalClip
 
 if __name__ == "__main__":
     r = Reddit()
@@ -18,5 +19,8 @@ if __name__ == "__main__":
         tts = TextToSpeech(post_body, post_id, post_comments)
         tts.runTTSService()
 
-        p = Parser(post_id)
-        p.combine_image_and_audio()
+        p = ParserVoiceAndScreenshot(post_id)
+        p.run_parser_service()
+    
+        f = FinalClip(post_id)
+        f.combine()
