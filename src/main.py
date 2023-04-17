@@ -3,6 +3,7 @@ from reddit.screenshotService import ScreenShotter
 from reddit.textToSpeechService import TextToSpeech
 from content_creator.parseVoiceAndClip import ParserVoiceAndScreenshot
 from content_creator.finalVideoService import FinalClip
+from instagram.uploadInstagram import InstagramUploader
 
 if __name__ == "__main__":
     r = Reddit()
@@ -12,7 +13,8 @@ if __name__ == "__main__":
         post_id = post['id']
         post_url = post['url']
         post_comments = post['comments']
-        
+        post_author = post['author']
+
         ss = ScreenShotter(post_url, post_id, post_comments)
         ss.run_screenshot_service()
 
@@ -24,3 +26,6 @@ if __name__ == "__main__":
     
         f = FinalClip(post_id)
         f.combine()
+
+        i = InstagramUploader(post_id, post_author)
+        i.run_screenshot_service()

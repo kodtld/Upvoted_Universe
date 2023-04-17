@@ -6,9 +6,9 @@ class ParserVoiceAndScreenshot:
         self.post_id = post_id
         self.image_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}'
         self.audio_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/voiceovers/{self.post_id}'
+        self.output_folder = f"/home/kxsalmi/Upvoted_Universe/src/resources/image_and_audio/{self.post_id}"
         self.image_files = sorted(os.listdir(self.image_folder))
         self.audio_files = sorted(os.listdir(self.audio_folder))
-        self.output_folder = f"/home/kxsalmi/Upvoted_Universe/src/resources/image_and_audio/{self.post_id}"
         self.ultimate_duration = 0
         self.ultimate_clip_count = 0
         
@@ -21,7 +21,7 @@ class ParserVoiceAndScreenshot:
             audio_path = os.path.join(self.audio_folder, audio_file)
             image = mp.ImageClip(image_path)
             audio = mp.AudioFileClip(audio_path)
-            image = image.resize(width=900)
+            image = image.resize(width=950)
             video = image.set_audio(audio)
             video_duration = audio.duration
             final_video = video.subclip(0, video_duration)
