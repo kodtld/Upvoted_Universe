@@ -116,7 +116,7 @@ class Main:
             post_found = False
             for post in self.converted_posts:
                 if post["id"] == post_to_delete:
-                    os.remove(f'/home/kxsalmi/Upvoted_Universe/src/resources/image_and_audio/{post_to_delete}/final_output.mp4')
+                    os.remove(f'/home/kxsalmi/Upvoted_Universe/src/resources/final_videos/{post_to_delete}_final.mp4')
                     post_found = True
                     print(f"Post {post_to_delete} has been deleted.")
                     self.db.delete_post(post['id'])

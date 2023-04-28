@@ -1,10 +1,16 @@
+import os
 from moviepy.editor import VideoFileClip
 import random
 
 class VideoSectionExtractor:
     def __init__(self, section_length):
-        randint = random.choice([1,2])
-        self.video_path = f'/home/kxsalmi/Upvoted_Universe/src/resources/bg_videos/Video{randint}.mp4'
+        video_directory = '/home/kxsalmi/Upvoted_Universe/src/resources/bg_videos/'
+        self.video_files = []
+        for filename in os.listdir(video_directory):
+            if filename.endswith('.mp4'):
+                self.video_files.append(os.path.join(video_directory, filename))
+        self.random_video = random.choice(self.video_files)
+        self.video_path = os.path.join(video_directory, self.random_video)
         self.section_length = section_length
 
         self.width = 1080
