@@ -1,9 +1,10 @@
 import praw
 
 class Reddit:
-    def __init__(self):
+    def __init__(self, number_of_posts):
         self.posts_and_comments = []
         self.top_posts = []
+        self.number_of_posts = number_of_posts
 
     def access_reddit(self):
         return praw.Reddit("user", user_agent="UpvotedUniverse:v0.0.1")
@@ -11,7 +12,7 @@ class Reddit:
     def get_posts(self):
         reddit = self.access_reddit()
         subreddit = reddit.subreddit('askreddit')
-        self.top_posts = subreddit.top(time_filter="day",limit=5)
+        self.top_posts = subreddit.top(time_filter="day",limit=self.number_of_posts)
         
     def get_comments(self,post):
         comments = post.comments

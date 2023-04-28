@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class InstagramUploader:
-    def __init__(self, post_id, post_author):
+    def __init__(self, post_body, post_id, post_author):
         self.post_id = post_id
         self.driver = webdriver.Firefox(executable_path='C:/home/kxsalmi/Drivers/geckodriver')
         self.username = os.getenv('INSTAGRAM_USERNAME')
@@ -20,33 +20,25 @@ class InstagramUploader:
                     "#reddit #relatablememes #storytelling #interesting #dailymemez "
                     "#textpostfunny #edgyhumour #genzhumor #textfails #redditcrew #redditmemes ")
         
-        self.caption = f'⬆️ By reddit user: @{post_author} \nFollow @upvoteduniverse for daily reddit posts!\n\n\n\n\n{hashtags}'
+        self.caption = f'{post_body}\nAsked by reddit user: @{post_author}\nFollow @upvoteduniverse for daily reddit posts!\n\n\n\n\n{hashtags}'
 
     def login_instagram(self):
         self.driver.get('https://www.instagram.com/accounts/onetap/?next=%2F')
-        time.sleep(2)
+        try:
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Only allow essential cookies"]'))).click()
+        except: # pylint: disable=W0702
+            pass
 
-        cookies_button = self.driver.find_element(By.XPATH, '//button[text()="Only allow essential cookies"]')
-        cookies_button.click()
-        time.sleep(2)
-
-        username_field = self.driver.find_element(By.NAME, 'username')
-        username_field.send_keys(self.username)
-
-        password_field = self.driver.find_element(By.NAME, 'password')
-        password_field.send_keys(self.password)
-
-        login_button = self.driver.find_element(By.XPATH, '//button[@type="submit"]')
-        login_button.click()
-        time.sleep(2)
-   
-
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.NAME, 'username'))).send_keys(self.username)
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.NAME, 'password'))).send_keys(self.password)
+        element = self.driver.find_element(By.CLASS_NAME, '_acan._acap._acas._aj1-')
+        self.driver.execute_script("arguments[0].click();", element)
 
     def upload_video(self):
         try:
             not_now_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Not Now"]')))
             not_now_button.click()
-        except:
+        except: # pylint: disable=W0702
             pass
 
         create_button = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[text()="Create"]')))
@@ -91,10 +83,10 @@ class InstagramUploader:
                     EC.presence_of_element_located((By.XPATH, '//div[text()="Reel shared"]'))
                 )
             
-                os.remove(f'/home/kxsalmi/Upvoted_Universe/src/resources/final_videos/{self.post_id}_final.mp4')
+                # os.remove(f'/home/kxsalmi/Upvoted_Universe/src/resources/final_videos/{self.post_id}_final.mp4')
                 break
             
-            except:
+            except: # pylint: disable=W0702
                 try_again_button = self.driver.find_element(By.XPATH, '//button[text()="Try Again"]')
                 if try_again_button.is_displayed():
                     try_again_button.click()
@@ -112,11 +104,8 @@ class InstagramUploader:
     def close_driver(self): 
         self.driver.close()
 
-    def run_screenshot_service(self):
+    def run_upload_service(self):
         self.login_instagram()
         self.upload_video()
         self.close_driver()
 
-# if __name__ == "__main__":
-#     i = InstagramUploader("12ocf1t", "Redditboy493")
-#     i.run_screenshot_service()

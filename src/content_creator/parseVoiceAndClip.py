@@ -2,7 +2,7 @@ import os
 import moviepy.editor as mp
 
 class ParserVoiceAndScreenshot:
-    def __init__(self, post_id):
+    def __init__(self, post_id, max_length=60):
         self.post_id = post_id
         self.image_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}'
         self.audio_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/voiceovers/{self.post_id}'
@@ -11,7 +11,7 @@ class ParserVoiceAndScreenshot:
         self.audio_files = sorted(os.listdir(self.audio_folder))
         self.ultimate_duration = 0
         self.ultimate_clip_count = 0
-        
+        self.max_length = max_length
 
     def combine_image_and_audio(self):
         os.makedirs(self.output_folder)
@@ -26,7 +26,7 @@ class ParserVoiceAndScreenshot:
             video_duration = audio.duration
             final_video = video.subclip(0, video_duration)
 
-            final_video_speed = final_video.speedx(1.25)
+            final_video_speed = final_video.speedx(1.30)
             output_path = os.path.join(self.output_folder, f"output_{i}.mp4")
             final_video_speed.write_videofile(output_path, fps=60, codec='libx264')
 
@@ -48,7 +48,7 @@ class ParserVoiceAndScreenshot:
             final_clip.write_videofile(output_path, codec='libx264')
 
     def check_length(self, clip):
-        if self.ultimate_duration + clip.duration <= 90:
+        if self.ultimate_duration + clip.duration <= float(self.max_length):
             self.ultimate_duration += clip.duration
             self.ultimate_clip_count += 1
             return True
