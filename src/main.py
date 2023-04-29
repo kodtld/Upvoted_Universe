@@ -6,6 +6,7 @@ from content_creator.parseVoiceAndClip import ParserVoiceAndScreenshot
 from content_creator.finalVideoService import FinalClip
 from instagram.uploadInstagram import InstagramUploader
 from database import Database
+from cleanup import run_cleanup
 
 class Main:
     def __init__(self) -> None:
@@ -163,6 +164,7 @@ class Main:
                 self.delete_converted()
 
             elif command == "q":
+                run_cleanup()
                 break
                 
             else:

@@ -41,8 +41,7 @@ class Database:
         else:
             print("\nConverted posts:")
             for post in converted_posts:
-                if not post['instagram']:
-                    print(f"Post ID: {post['id']}, Title: {post['title']}, Author: {post['author']}, Instagram: {post['instagram']}\n")
+                print(f"Post ID: {post['id']}, Title: {post['title']}, Author: {post['author']}, Instagram: {post['instagram']}\n")
 
     def delete_post(self, post_id):
         self.cursor.execute("DELETE FROM converted_videos WHERE post_id = ?", (post_id,))
