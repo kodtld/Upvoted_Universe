@@ -5,11 +5,11 @@ from content_creator.backgroundService import VideoSectionExtractor
 class FinalClip:
     def __init__(self, post_id):
         self.post_id = post_id
-        self.clip2_path = f'/home/kxsalmi/Upvoted_Universe/src/resources/image_and_audio/{self.post_id}/final_output.mp4'
+        self.clip2_path = f'./resources/image_and_audio/{self.post_id}/final_output.mp4'
         self.clip2 = mp.VideoFileClip(self.clip2_path).set_opacity(0.95)
         video_extractor = VideoSectionExtractor(self.clip2.duration)
         self.clip1 = video_extractor.extract_section()
-        self.output_folder = '/home/kxsalmi/Upvoted_Universe/src/resources/final_videos/'
+        self.output_folder = './resources/final_videos/'
         
     def combine(self):
         clip1_audio = self.clip1.audio.volumex(0.2)

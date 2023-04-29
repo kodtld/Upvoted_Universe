@@ -10,7 +10,7 @@ load_dotenv()
 
 class ScreenShotter:
     def __init__(self, post_url, post_id, post_comments):
-        self.driver = webdriver.Firefox(executable_path='C:/home/kxsalmi/Drivers/geckodriver')
+        self.driver = webdriver.Firefox(executable_path='../drivers/geckodriver')
         self.username = os.getenv('REDDIT_USERNAME')
         self.password = os.getenv('REDDIT_PASSWORD')
         self.post_url = post_url
@@ -58,17 +58,19 @@ class ScreenShotter:
         location = element.location
         size = element.size
         
-        os.makedirs(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}')
+        new_dir_path = os.path.join(os.getcwd(), 'resources', 'screenshots', self.post_id)
+        os.makedirs(new_dir_path, exist_ok=True)
 
-        self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
+
+        self.driver.save_screenshot(f'./resources/screenshots/{self.post_id}/title-{self.post_id}.png')
 
         x = location['x']
         y = location['y']
         width = size['width']
         height = size['height']
-        im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
+        im = Image.open(f'./resources/screenshots/{self.post_id}/title-{self.post_id}.png')
         im = im.crop((int(x), int(y), int(x + width), int(y + height)))
-        im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/title-{self.post_id}.png')
+        im.save(f'./resources/screenshots/{self.post_id}/title-{self.post_id}.png')
 
     def comment_screenshot(self, comment):
         comment_id = comment['id']
@@ -84,15 +86,15 @@ class ScreenShotter:
         size = element.size
         time.sleep(2)
 
-        self.driver.save_screenshot(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        self.driver.save_screenshot(f'./resources/screenshots/{self.post_id}/comment-{comment_id}.png')
         
         x = location['x']
         y = location['y'] + 100
         width = size['width']
         height = size['height']
-        im = Image.open(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        im = Image.open(f'./resources/screenshots/{self.post_id}/comment-{comment_id}.png')
         im = im.crop((int(x), int(y), int(x + width), int(y + height)))
-        im.save(f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}/comment-{comment_id}.png')
+        im.save(f'./resources/screenshots/{self.post_id}/comment-{comment_id}.png')
 
 
     def close_driver(self): 

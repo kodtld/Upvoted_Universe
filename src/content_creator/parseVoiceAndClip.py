@@ -4,9 +4,9 @@ import moviepy.editor as mp
 class ParserVoiceAndScreenshot:
     def __init__(self, post_id, max_length=60):
         self.post_id = post_id
-        self.image_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/screenshots/{self.post_id}'
-        self.audio_folder = f'/home/kxsalmi/Upvoted_Universe/src/resources/voiceovers/{self.post_id}'
-        self.output_folder = f"/home/kxsalmi/Upvoted_Universe/src/resources/image_and_audio/{self.post_id}"
+        self.image_folder = f'./resources/screenshots/{self.post_id}'
+        self.audio_folder = f'./resources/voiceovers/{self.post_id}'
+        self.output_folder = f"./resources/image_and_audio/{self.post_id}"
         self.image_files = sorted(os.listdir(self.image_folder))
         self.audio_files = sorted(os.listdir(self.audio_folder))
         self.ultimate_duration = 0

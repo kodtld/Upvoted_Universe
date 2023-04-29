@@ -4,13 +4,13 @@ import random
 
 class VideoSectionExtractor:
     def __init__(self, section_length):
-        video_directory = '/home/kxsalmi/Upvoted_Universe/src/resources/bg_videos/'
+        video_directory = './resources/bg_videos/'
         self.video_files = []
         for filename in os.listdir(video_directory):
             if filename.endswith('.mp4'):
+                print(os.path.join(video_directory, filename))
                 self.video_files.append(os.path.join(video_directory, filename))
-        self.random_video = random.choice(self.video_files)
-        self.video_path = os.path.join(video_directory, self.random_video)
+        self.video_path = random.choice(self.video_files)
         self.section_length = section_length
 
         self.width = 1080
