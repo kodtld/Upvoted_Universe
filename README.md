@@ -34,18 +34,6 @@ Before using Upvoted Universe, make sure you have the following prerequisites an
 
 For the REDDIT_CLIENT_ID, REDDIT_SECRET, and REDDIT_REDIRECT_URL, please refer to the [Reddit API documentation](https://www.reddit.com/dev/api/) to obtain the necessary credentials for authentication.
 
-```plaintext
-REDDIT_CLIENT_ID=your_reddit_client_id
-REDDIT_SECRET=your_reddit_secret
-REDDIT_USERNAME=your_reddit_username
-REDDIT_PASSWORD=your_reddit_password
-REDDIT_REDIRECT_URL=your_reddit_redirect_url
-INSTAGRAM_USERNAME=your_instagram_username
-INSTAGRAM_PASSWORD=your_instagram_password
-YOUTUBE_USERNAME=your_youtube_username
-YOUTUBE_PASSWORD=your_youtube_password
-
-
 ## Installation & Running
 
 To install Upvoted Universe, follow these steps:
