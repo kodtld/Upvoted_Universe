@@ -1,8 +1,8 @@
-## Upvoted Universe
+# Upvoted Universe
 
-Upvoted Universe is a powerful program that combines the functionality of several Python libraries to scrape Reddit posts, generate voiceovers using gTTS (Google Text-to-Speech), manipulate screenshots with Selenium, overlay them onto a background video using MoviePy, and even upload the resulting content as reels to Instagram using Selenium. This program is designed to provide a streamlined workflow for creating engaging multimedia content based on popular Reddit posts. It automates the process of gathering relevant information from Reddit, converting text to speech, creating visually appealing video clips, and uploading them to Instagram, saving you time and effort.
+Upvoted Universe is a program that combines the functionality of several Python libraries to scrape Reddit posts, generate voiceovers using gTTS (Google Text-to-Speech), manipulate screenshots with Selenium, overlay them onto a background video using MoviePy, and even upload the resulting content as reels to Instagram using Selenium. This program is designed to provide a streamlined workflow for creating engaging multimedia content based on popular Reddit posts. It automates the process of gathering relevant information from Reddit, converting text to speech, creating visually appealing video clips, and uploading them to Instagram, saving you time and effort.
 
-### Features
+## Features
 
 Upvoted Universe offers the following features:
 
@@ -12,7 +12,7 @@ Upvoted Universe offers the following features:
 - **Video Composition**: Combines the generated voiceover with screenshots, overlaying them onto a background video using the MoviePy library to create visually appealing clips.
 - **Instagram Reels Uploader**: Leverages Selenium to automate the process of uploading the created video clips as Instagram Reels, allowing for easy distribution and engagement on the platform.
 
-### Installation
+## Installation
 
 To install Upvoted Universe, follow these steps:
 
@@ -22,4 +22,8 @@ To install Upvoted Universe, follow these steps:
 
 ```
 poetry install
+```
+4. Once the installation is complete, activate the Poetry virtual environment:
+```
+poetry shell
 ```
