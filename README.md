@@ -44,3 +44,22 @@ poetry shell
 ```
 python3 main.py
 ```
+## User Manual
+
+The Upvoted Universe program provides several commands to perform various actions. Once the program is running, you can interact with it using the following commands:
+
+- **Scrape Reddit**: Use the command `s` to scrape Reddit and fetch new posts.
+
+- **Convert Post to Video**: Use the command `c` to convert a specific post to a video clip. You will be prompted to enter the post ID or URL.
+
+- **Upload Post to Instagram**: Use the command `upi` to upload a converted post as an Instagram reel. You will be prompted to enter the post ID or URL.
+
+- **Print Fetched Posts**: Use the command `pf` to print the fetched Reddit posts along with their details.
+
+- **Print Converted Posts**: Use the command `pc` to print the converted posts along with their details.
+
+- **Delete Converted Post**: Use the command `d` to delete a converted post. You will be prompted to enter the post ID or URL.
+
+- **Quit the Program**: Use the command `q` to quit the program. The program also deletes temporary voiceover- and video files when it's quit. (Doesn't affect converted final videos)
+
+Please note that you can enter the commands directly into the program's command-line interface to perform the desired actions.
