@@ -3,6 +3,7 @@
 <img src="https://github.com/kodtld/Upvoted_Universe/blob/main/example.gif" alt="Image" height="500" />
 Upvoted Universe is a program that creates and uploads portrait videos of popular format where text-to-speech clips of Reddit posts are pasted over some captivating background clips.
 <br>
+
 Upvoted Universe uses several Python libraries to scrape Reddit posts, generate voiceovers using gTTS (Google Text-to-Speech), manipulate screenshots with Selenium, overlay them onto a background video using MoviePy, and even upload the resulting content as reels to Instagram using Selenium. This program is designed to provide a streamlined workflow for creating engaging multimedia content based on popular Reddit posts. It automates the process of gathering relevant information from Reddit, converting text to speech, creating visually appealing video clips, and uploading them to Instagram, saving you time and effort.
 
 ## Features
