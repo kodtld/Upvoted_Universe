@@ -28,3 +28,15 @@ poetry install
 ```
 poetry shell
 ```
+
+## Before Usage
+
+Before using Upvoted Universe, make sure you have the following prerequisites and files set up:
+
+1. **Background Videos**: Ensure that you have landscape format background videos in the `src/resources/bg_videos/` directory. These videos will be used as the background for the generated clips. Make sure the videos are compatible with the desired output format.
+
+2. **Geckodriver**: Place the `geckodriver` executable in the `src/drivers/` directory. Geckodriver is required for Selenium to interact with the Firefox web browser. Ensure that the version of Geckodriver matches your Firefox browser version.
+
+3. **Converted Videos Database**: In the `src/` directory, you should have a file named `converted_videos.db`. This SQLite database file is used by Upvoted Universe to keep track of the converted videos and their associated information. If the file does not exist, the program will create it automatically during runtime.
+
+Make sure to set up the above prerequisites and files correctly to ensure smooth execution of Upvoted Universe.
