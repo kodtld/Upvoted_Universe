@@ -1,5 +1,5 @@
 # Upvoted Universe <br>[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/upvoteduniverse/)
-Upvoted Universe is a program that creates and uploads portrait videos of popular format where text-to-speech clips of Reddit posts are pasted over some captivating background clips.
+Upvoted Universe is a program that creates and uploads portrait videos of popular format, where text-to-speech clips of Reddit posts are pasted over some captivating background clips.
 <br><br>
 <img src="https://github.com/kodtld/Upvoted_Universe/blob/main/example.gif" alt="Image" height="500" />
 <br><br>
